@@ -9,6 +9,7 @@ import { FuseV1Options, FuseVersion } from "@electron/fuses";
 
 import { mainConfig } from "./webpack.main.config";
 import { rendererConfig } from "./webpack.renderer.config";
+import AutoUnpackNativesPlugin from "@electron-forge/plugin-auto-unpack-natives";
 
 const config: ForgeConfig = {
   packagerConfig: {
@@ -24,6 +25,7 @@ const config: ForgeConfig = {
   plugins: [
     // Fuses are used to enable/disable various Electron functionality
     // at package time, before code signing the application
+    new AutoUnpackNativesPlugin({}),
     new FusesPlugin({
       version: FuseVersion.V1,
       [FuseV1Options.RunAsNode]: false,
