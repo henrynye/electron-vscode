@@ -1,24 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
+import { IFolderStructure, IMainState } from "./types";
 
-interface CounterState {
-  value: number;
-}
-
-const initialState: CounterState = {
-  value: 0,
+const initialState: IMainState = {
+  folder_structure: {} as IFolderStructure,
 };
 
 export const mainSlice = createSlice({
   name: "main",
   initialState,
   reducers: {
-    incrementByAmount: (state, action: PayloadAction<number>) => {
-      state.value += action.payload;
+    set_folder_structure: (state, action: PayloadAction<IFolderStructure>) => {
+      state.folder_structure = action.payload;
     },
   },
 });
 
-export const { incrementByAmount } = mainSlice.actions;
+export const { set_folder_structure } = mainSlice.actions;
 
 export default mainSlice.reducer;
