@@ -33,6 +33,27 @@ ipcMain.handle("get-folder", async (event, data) => {
   return store.get(SELECTED_FOLDER_STORE_NAME);
 });
 
+ipcMain.handle("open-folder", async (event, data) => {
+  const window = BrowserWindow.fromWebContents(event.sender);
+
+  const folder = await dialog.showOpenDialog(window, {
+    properties: ["openDirectory"],
+  });
+  let structure = undefined;
+  if (!folder.canceled) {
+    console.log("folder", folder.filePaths[0]);
+    const tree = get_files(folder.filePaths[0]);
+    structure = {
+      name: path.dirname(folder.filePaths[0]),
+      root: folder.filePaths[0],
+      tree,
+    };
+    // @ts-ignore
+    store.set(SELECTED_FOLDER_STORE_NAME, structure);
+  }
+  return structure;
+});
+
 const createWindow = (): void => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
@@ -46,28 +67,6 @@ const createWindow = (): void => {
 
   // and load the index.html of the app.
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
-
-  ipcMain.handle("open-folder", async (event, data) => {
-    const folder = await dialog.showOpenDialog(mainWindow, {
-      properties: ["openDirectory"],
-    });
-    let structure = undefined;
-    if (!folder.canceled) {
-      console.log("folder", folder.filePaths[0]);
-      const tree = get_files(folder.filePaths[0]);
-      structure = {
-        name: path.dirname(folder.filePaths[0]),
-        root: folder.filePaths[0],
-        tree,
-      };
-      // @ts-ignore
-      store.set(SELECTED_FOLDER_STORE_NAME, structure);
-    }
-    return structure;
-  });
-
-  // Open the DevTools.
-  mainWindow.webContents.openDevTools();
 };
 
 // This method will be called when Electron has finished

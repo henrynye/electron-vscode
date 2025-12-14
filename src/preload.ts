@@ -5,12 +5,10 @@ import { contextBridge, ipcRenderer } from "electron";
 const renderer = {
   openFolder: async () => {
     const folder = await ipcRenderer.invoke("open-folder");
-    console.log("folder", folder);
     return folder;
   },
   get_folder: async () => {
     const folder = await ipcRenderer.invoke("get-folder");
-    console.log("folder", folder);
     return folder;
   },
 };
