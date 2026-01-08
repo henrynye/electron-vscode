@@ -7,16 +7,12 @@ export default createHashRouter([
   {
     path: "/",
     element: <MainComponent />,
+    errorElement: <MainComponent />,
     children: [
       {
-        path: "/sidebar",
-        element: <SidebarIndexRoute />,
-        children: [
-          {
-            path: "/sidebar/",
-            element: <ExplorerRoute />,
-          },
-        ],
+        path: "/sidebar/",
+        element: <ExplorerRoute />,
+        index: true,
       },
     ],
   },

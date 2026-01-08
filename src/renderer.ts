@@ -28,6 +28,7 @@
 
 import "./index.css";
 import "./app-entry";
+import "react-perfect-scrollbar/dist/css/styles.css";
 
 console.log(
   '👋 This message is being logged by "renderer.js", included via webpack'

@@ -14,4 +14,12 @@ export type TFolderTree = {
 
 export interface IMainState {
   folder_structure: IFolderStructure;
+  active_files: TActiveFile[];
 }
+
+export type TActiveFile = {
+  path: string;
+  name: string;
+  icon: any;
+  is_touched: boolean;
+};

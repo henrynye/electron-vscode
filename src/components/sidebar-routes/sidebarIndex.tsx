@@ -1,7 +1,8 @@
 import React from "react";
+import { Outlet } from "react-router-dom";
 
 const SidebarIndexRoute = React.memo((props: any) => {
-  return <div className="folder-tree">hello world</div>;
+  return <Outlet />;
 });
 
 export default SidebarIndexRoute;

@@ -7,13 +7,14 @@ import { ReactComponent as SourceIcon } from "../../assets/svg/source.svg";
 import { ReactComponent as AccountIcon } from "../../assets/svg/account.svg";
 import { ReactComponent as SettingsIcon } from "../../assets/svg/settings.svg";
 import { Link, Outlet } from "react-router-dom";
+import PerfectScrollbar from "react-perfect-scrollbar";
 
 const SidebarSection = React.memo((props: any) => {
   return (
     <div className="sidebar-section">
       <div className="icon-list">
         <div>
-          <Link to={"/sidebar"} className="icon active">
+          <Link to={"/sidebar/"} className="icon active">
             <FileIcon />
             <div className="tooltip">Explorer</div>
           </Link>
@@ -45,7 +46,9 @@ const SidebarSection = React.memo((props: any) => {
           </div>
         </div>
       </div>
-      <div className="explorer-list">{<Outlet />}</div>
+      <PerfectScrollbar>
+        <div className="explorer-list">{<Outlet />}</div>
+      </PerfectScrollbar>
     </div>
   );
 });
